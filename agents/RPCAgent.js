@@ -1,4 +1,4 @@
-var eve = require('../../index');
+var eve = require('evejs');
 
 function RPCAgent(id) {
   // execute super constructor
