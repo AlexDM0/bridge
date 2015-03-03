@@ -8,9 +8,9 @@ function RPCAgent(id) {
   this.count = 0;
 
   // extend the agent with RPC functionality
-  this.rpc = this.loadModule('rpc', this.rpcFunctions, {timeout:2000}); // option 1
+  this.rpc = this.loadModule('rpc', this.rpcFunctions, {timeout:200000}); // option 1
 
-  this.rpc = this.loadModule('rpc', {methods: this.rpcFunctions, timeout:2000}); // option 1
+  this.rpc = this.loadModule('rpc', {methods: this.rpcFunctions, timeout:200000}); // option 1
 
   // alternative ways to load the RPC module:
   // this.rpc = this.loadModule('rpc', {add: this.rpcFunctions.add}); // option 2
@@ -39,9 +39,10 @@ RPCAgent.prototype.rpcFunctions.add = function (params, sender) {
 
 RPCAgent.prototype.askToAdd = function (to, params) {
   var message = {method: 'add', params: params};
+  console.log(to,params)
   this.rpc.request(to, message).then(function (reply) {
     console.log('The agent told me that', params.a, '+', params.b, '=', reply);
-  });
+  }).done();
 };
 
 module.exports = RPCAgent;
