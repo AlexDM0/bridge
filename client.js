@@ -5,7 +5,7 @@
 var eve = require('evejs');
 var RPCAgent = require('./agents/RPCAgent');
 
-var port = process.env.PORT || 51481;
+var port = process.env.PORT || 5001;
 console.log(port);
 
 eve.system.init({
@@ -21,11 +21,11 @@ eve.system.init({
 });
 
 // create two agents
-var agent1 = new RPCAgent('agent1');
-//var agent2 = new RPCAgent('agent2');
+//var agent1 = new RPCAgent('agent1');
+var agent2 = new RPCAgent('agent2');
 
 // send a message to agent1
-//agent2.askToAdd('https://mighty-waters-2966.herokuapp.com:' + port + '/agents/agent1', {a: 1, b: 2});
+agent2.askToAdd('http://127.0.0.1:' + 5000 + '/agents/agent1', {a: 1, b: 2});
 
 // catch error, send a message to a non-existing agent will fail
 //agent2.rpc.request('agent4', {method: 'add', params: {a: 1, b: 2}})

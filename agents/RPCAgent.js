@@ -10,7 +10,7 @@ function RPCAgent(id) {
   // extend the agent with RPC functionality
   this.rpc = this.loadModule('rpc', this.rpcFunctions, {timeout:200000}); // option 1
 
-  this.rpc = this.loadModule('rpc', {methods: this.rpcFunctions, timeout:200000}); // option 1
+  //this.rpc = this.loadModule('rpc', {methods: this.rpcFunctions, timeout:200000}); // option 1
 
   // alternative ways to load the RPC module:
   // this.rpc = this.loadModule('rpc', {add: this.rpcFunctions.add}); // option 2
