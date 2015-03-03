@@ -1,8 +1,20 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
-  "dependencies": {
-    "evejs": "latest"
+  "name": "HerokuTest",
+  "version": "0.1.2",
+  "description": "A sample Node.js app using Express 4",
+  "main": "testApp.js",
+  "scripts": {
+    "start": "node testApp.js"
   },
-  "main": "./testApp"
+  "dependencies": {
+    "evejs":"latest"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ]
 }
