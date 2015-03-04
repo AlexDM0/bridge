@@ -34,6 +34,8 @@ RPCAgent.prototype.minus = function (params, sender) {
 // exposed functions from local functions.
 RPCAgent.prototype.rpcFunctions = {};
 RPCAgent.prototype.rpcFunctions.add = function (params, sender) {
+  this.askToAdd(sender, params);
+  console.log(sender)
   return params.a + params.b;
 };
 
