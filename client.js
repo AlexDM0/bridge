@@ -11,8 +11,8 @@ console.log(port);
 eve.system.init({
   transports: [
     {
-      type: 'http',
-      url: 'http://127.0.0.1:' + port + '/agents/:id',
+      type: 'ws',
+      url: 'ws://127.0.0.1:' + port + '/agents/:id',
       localShortcut: false,
       port:port,
       default: true
@@ -25,7 +25,7 @@ eve.system.init({
 var agent2 = new RPCAgent('agent2');
 
 // send a message to agent1
-agent2.askToAdd('http://127.0.0.1:' + 5000 + '/agents/agent1', {a: 1, b: 2});
+agent2.askToAdd('ws://mighty-waters-2966.herokuapp.com/agents/agent1', {a: 1, b: 2});
 
 // catch error, send a message to a non-existing agent will fail
 //agent2.rpc.request('agent4', {method: 'add', params: {a: 1, b: 2}})

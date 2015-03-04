@@ -5,16 +5,15 @@
 var eve = require('evejs');
 var RPCAgent = require('./agents/RPCAgent');
 
-var port = process.env.PORT || 51481;
+var port = process.env.PORT || 5001;
 console.log(port);
 
 eve.system.init({
   transports: [
     {
-      type: 'http',
-      url: 'http://127.0.0.1:' + port + '/agents/:id',
+      type: 'ws',
+      url: 'ws://127.0.0.1:' + port + '/agents/:id',
       localShortcut: false,
-      port:port,
       default: true
     }
   ]
