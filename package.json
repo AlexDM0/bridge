@@ -6,9 +6,6 @@
   "scripts": {
     "start": "node testApp.js"
   },
-  "dependencies": {
-//    "evejs":"latest"
-  },
   "engines": {
     "node": "0.10.x"
   },
