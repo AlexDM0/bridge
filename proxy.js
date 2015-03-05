@@ -2,7 +2,7 @@
  * Created by Alex on 3/3/2015.
  */
 
-var eve = require("evejs");
+var eve = require("./assets/evejs");
 var proxyAgent = require('./agents/proxyAgent');
 
 var port = process.env.PORT || 5000;
