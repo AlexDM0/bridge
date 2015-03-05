@@ -6,9 +6,6 @@
   "scripts": {
     "start": "node proxy.js"
   },
-  "engines": {
-    "node": "^0.10.0"
-  },
   "keywords": [
     "node",
     "heroku",
