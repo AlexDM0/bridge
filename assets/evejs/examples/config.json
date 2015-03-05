@@ -1,7 +1,0 @@
-{
-  "transports": [
-    {
-      "type": "distribus"
-    }
-  ]
-}

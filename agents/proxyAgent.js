@@ -1,4 +1,4 @@
-var eve = require('../assets/evejs');
+var eve = require('evejs');
 
 function proxyAgent(id) {
   // execute super constructor

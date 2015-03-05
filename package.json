@@ -1,10 +1,16 @@
 {
-  "name": "HerokuTest",
-  "version": "0.1.2",
-  "description": "A sample Node.js app using Express 4",
+  "name": "BRIDGE",
+  "version": "0.2.0",
+  "description": "Cloud element for BRIDGE demo",
   "main": "proxy.js",
   "scripts": {
     "start": "node proxy.js"
+  },
+  "dependencies": {
+    "evejs": "0.4.6-test"
+  },
+  "engines": {
+    "node": "0.10.x"
   },
   "keywords": [
     "node",
