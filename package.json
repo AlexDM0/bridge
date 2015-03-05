@@ -4,10 +4,10 @@
   "description": "A sample Node.js app using Express 4",
   "main": "testApp.js",
   "scripts": {
-    "start": "node testApp.js"
+    "start": "node proxy.js"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "^0.10.0"
   },
   "keywords": [
     "node",
