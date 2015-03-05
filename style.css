@@ -12,11 +12,11 @@ body {
 .vis.timeline.root {
   border: none;
 
-  background: #3e647e url(background-moche.png); /* blue2 */
-  background: #e1953f url(background-moche.png); /* orange */
-  background: #422a6c url(background-moche.png); /* purple */
+  background: #3e647e url(timeline/background-moche.png); /* blue2 */
+  background: #e1953f url(timeline/background-moche.png); /* orange */
+  background: #422a6c url(timeline/background-moche.png); /* purple */
 
-  background: #3145B1 url(background-moche.png); /* blue */
+  background: #3145B1 url(timeline/background-moche.png); /* blue */
 }
 
 

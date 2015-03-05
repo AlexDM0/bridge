@@ -6,6 +6,7 @@ var eventTypes = {};
 var buttonHammers = [];
 var createType = undefined;
 var connected = false;
+var selectedColor = 'white';
 
 function initButtons(data) {
   console.log(data)
@@ -16,11 +17,23 @@ function initButtons(data) {
   }
 }
 
+function selectColor(color,id) {
+  selectedColor = color;
+  var colors = ['colorRed','colorWhite','colorGreen','colorOrange','colorMagenta'];
+
+  for (var i = 0; i < colors.length; i++) {
+    var classname = document.getElementById(colors[i]).className.replace("selected","");
+    document.getElementById(colors[i]).className = classname;
+  }
+
+  document.getElementById(id).className = document.getElementById(id).className += " selected";
+}
+
 function createButton(name) {
   var container = document.getElementById("buttonBunch");
   var button = document.createElement("button");
   button.type = "button";
-  button.className = "btn btn-primary";
+  button.className = "btn btn-primary " + eventTypes[name].class;
   button.innerHTML = name;
 
   container.appendChild(button);
@@ -36,7 +49,6 @@ function showOverlay(name,event) {
   var optionsWindow = document.getElementById("newTimelineEvent");
   optionsWindow.style.top = event.pointers[0].pageY -100 + 'px';
   optionsWindow.style.left = event.pointers[0].pageX + 10 + 'px';
-  console.log(event)
 }
 
 function newTimelineEvent() {
@@ -59,10 +71,9 @@ function hideOverlay() {
 
 function newEvent() {
   var name = document.getElementById('newEvent').value;
-  var classname = document.getElementById('classname').value;
   var range = false;//document.getElementById('range').checked;
   if (name !== "") {
-    var data = {name: name, class: classname, range: range};
+    var data = {name: name, class: selectedColor, range: range};
     eventTypes[name] = data;
     createButton(name);
     inputProxy.addEventType(data);
@@ -72,8 +83,7 @@ function newEvent() {
   }
 
   document.getElementById('newEvent').value = "";
-  document.getElementById('classname').value = "";
-  document.getElementById('range').checked = false;
+  //document.getElementById('range').checked = false;
 }
 
 function resetEvents() {
@@ -92,6 +102,5 @@ function resetTimelineData() {
   var r = confirm("Really delete all data on the timeline?");
   if (r == true) {
     inputProxy.resetTimelineEvents();
-    document.getElementById("buttonBunch").innerHTML = "";
   }
 }

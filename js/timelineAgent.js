@@ -1,3 +1,5 @@
+
+
 function timelineAgent(id, proxyAddress) {
   // execute super constructor
   eve.Agent.call(this, id);
@@ -25,52 +27,35 @@ timelineAgent.prototype.constructor = timelineAgent;
 
 timelineAgent.prototype.rpcFunctions = {};
 
+timelineAgent.prototype.rpcFunctions.close = function() {
+  sessionClosed();
+};
+
 timelineAgent.prototype.connectToProxy = function() {
-  this.rpc.request(this.proxyAddress, {method:'setTimelineClient',params:{}}).done();
+  this.rpc.request(this.proxyAddress, {method:'setTimelineClient',params:{}}).done(function () {
+    connected = true;
+  });
 };
 
-timelineAgent.prototype.rpcFunctions.setInputClient = function (params, sender) {
-  if (this.inputClient !== undefined) {
-    this.rpc.request(this.inputClient,{method:'close',params:{}})
-  }
-  this.inputClient = sender;
-  return true;
+timelineAgent.prototype.rpcFunctions.addTimelineEvent = function(params,sender) {
+  addToDataset(params.item);
 };
 
-timelineAgent.prototype.rpcFunctions.reset = function (params, sender) {
-  this.eventTypes = {};
-  this.timelineEvents = [];
-  return true;
+timelineAgent.prototype.rpcFunctions.resetTimelineEvents = function(params,sender) {
+  clearDataset();
 };
 
-timelineAgent.prototype.rpcFunctions.resetTimelineEvents = function (params, sender) {
-  this.timelineEvents = [];
-  return true;
+timelineAgent.prototype.wakeProxy = function(httpAddress) {
+  this.rpc.request(httpAddress, {method:'wakeUp',params:{}}).done();
 };
 
-timelineAgent.prototype.rpcFunctions.resetEventTypes = function (params, sender) {
-  this.eventTypes = {};
-  return true;
-};
-
-timelineAgent.prototype.rpcFunctions.addEventType = function (params, sender) {
-  this.eventTypes[params.type] = {start:params.start, end:params.end, class:params.class};
-  return true;
-};
-
-timelineAgent.prototype.rpcFunctions.addTimelineEvent = function (params, sender) {
-  this.timelineEvents.push(params.event);
-  return true;
-};
-
-timelineAgent.prototype.rpcFunctions.getEventTypes = function (params, sender) {
-  return this.eventTypes;
-};
-
-timelineAgent.prototype.rpcFunctions.getTimelineEvents = function (params, sender) {
-  return this.timelineEvents;
-};
-
-timelineAgent.prototype.rpcFunctions.wakeUp = function (params, sender) {
-  return true;
+timelineAgent.prototype.getTimelineEvents = function (params, sender) {
+  var me = this;
+  return new Promise(function(resolve,reject) {
+    me.rpc.request(me.proxyAddress, {method: 'getTimelineEvents', params: {}})
+      .then(function (reply) {
+        resolve(reply);
+      })
+      .catch(function(err) {reject(err);});
+  })
 };

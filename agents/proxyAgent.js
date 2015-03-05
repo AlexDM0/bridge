@@ -25,7 +25,7 @@ proxyAgent.prototype.constructor = proxyAgent;
 proxyAgent.prototype.rpcFunctions = {};
 
 proxyAgent.prototype.rpcFunctions.setTimelineClient = function (params, sender) {
-  console.log(sender);
+  console.log("set timeline:",sender);
   if (this.timelineClient !== undefined) {
     this.rpc.request(this.timelineClient,{method:"close",params:{}})
   }
@@ -69,7 +69,7 @@ proxyAgent.prototype.rpcFunctions.addEventType = function (params, sender) {
 proxyAgent.prototype.rpcFunctions.addTimelineEvent = function (params, sender) {
   this.timelineEvents.push(params.item);
   if (this.timelineClient !== undefined) {
-    this.rpc.request(this.timelineClient, {method:'addTimelineEvent', params:params})
+    this.rpc.request(this.timelineClient, {method:'addTimelineEvent', params:params.item})
   }
   return true;
 };
