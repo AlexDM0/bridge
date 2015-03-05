@@ -1,1 +1,1 @@
-web: node testApp.js
+web: node proxy.js

@@ -3,35 +3,22 @@
  */
 
 var eve = require('evejs');
-var RPCAgent = require('./agents/RPCAgent');
-
-var port = process.env.PORT || 5001;
-console.log(port);
+var timelineAgent = require('./agents/timelineAgent');
 
 eve.system.init({
   transports: [
     {
       type: 'ws',
-      url: 'ws://127.0.0.1:' + port + '/agents/:id',
-      localShortcut: false,
-      port:port,
+      url: 'ws://client/agents/:id',
       default: true
     }
   ]
 });
 
-// create two agents
-//var agent1 = new RPCAgent('agent1');
-var agent2 = new RPCAgent('agent2');
+var proxyAddress = 'ws://127.0.0.1:5000/agents/proxy';
+var proxyAddressHttp = 'http://127.0.0.1:5000/agents/proxy';
 
-// send a message to agent1
-agent2.askToAdd('ws://mighty-waters-2966.herokuapp.com/agents/agent1', {a: 1, b: 2});
+var timelineClient = new timelineAgent('timelineClient', proxyAddress);
 
-// catch error, send a message to a non-existing agent will fail
-//agent2.rpc.request('agent4', {method: 'add', params: {a: 1, b: 2}})
-//  .then(function (reply) {
-//    console.log(reply);
-//  })
-//  .catch(function (err) {
-//    console.log(err)
-//  });
+timelineClient.wakeProxy(proxyAddressHttp);
+timelineClient.connectToProxy();
