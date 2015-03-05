@@ -2,7 +2,7 @@
   "name": "HerokuTest",
   "version": "0.1.2",
   "description": "A sample Node.js app using Express 4",
-  "main": "testApp.js",
+  "main": "proxy.js",
   "scripts": {
     "start": "node proxy.js"
   },
