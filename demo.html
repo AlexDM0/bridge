@@ -2,6 +2,18 @@
 <head>
   <title>Timeline | Bridge</title>
 
+
+  <script language="JavaScript">
+      // change these adresses to correspond to the path of the proxy
+      // if the proxy is hosted somewhere (say http://80.152.65.23) on port 5000, the path to the proxy is:
+
+      // ws://80.152.65.23:5000/agents/proxy
+      // http://80.152.65.23:5000/agents/proxy  /   https://80.152.65.23:5000/agents/proxy
+    var proxyAddress = 'ws://afternoon-beyond-2302.herokuapp.com/agents/proxy';
+    var proxyAddressHTTP = 'https://afternoon-beyond-2302.herokuapp.com/agents/proxy';
+  </script>
+
+
   <script src="js/vis/vis.js"></script>
 
   <script src="js/eve.js"></script>
@@ -58,9 +70,6 @@
 
   var proxyAddress = 'ws://afternoon-beyond-2302.herokuapp.com/agents/proxy';
   var proxyAddressHTTP = 'https://afternoon-beyond-2302.herokuapp.com/agents/proxy';
-
-//  proxyAddress = 'ws://127.0.0.1:5000/agents/proxy';
-//  proxyAddressHTTP = 'http://127.0.0.1:5000/agents/proxy';
 
   timelineProxy = new timelineAgent('timelineAgent', proxyAddress);
 

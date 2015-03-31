@@ -5,8 +5,11 @@
 var eve = require("evejs");
 var proxyAgent = require('./agents/proxyAgent');
 
+
+// SET THE PORT HERE, do not change anything else.
 var port = process.env.PORT || 5000;
-console.log(port);
+
+console.log("using port:",port);
 
 var proxy = new proxyAgent('proxy');
 

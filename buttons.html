@@ -3,6 +3,18 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+
+    <script language="JavaScript">
+        // change these adresses to correspond to the path of the proxy
+        // if the proxy is hosted somewhere (say http://80.152.65.23) on port 5000, the path to the proxy is:
+
+        // ws://80.152.65.23:5000/agents/proxy
+        // http://80.152.65.23:5000/agents/proxy  /   https://80.152.65.23:5000/agents/proxy
+
+        var proxyAddress = 'ws://afternoon-beyond-2302.herokuapp.com/agents/proxy';
+        var proxyAddressHTTP = 'https://afternoon-beyond-2302.herokuapp.com/agents/proxy';
+    </script>
+
     <script src="./js/hammer.js"></script>
     <script src="./js/es6-shim.min.js"></script>
     <script src="./js/eve.js"></script>
@@ -10,11 +22,12 @@
     <script src="./js/jquery.min.js"></script>
     <script src="./js/bootstrap.min.js"></script>
     <script language="JavaScript">
+        // input proxy global var
         var inputProxy;
     </script>
     <script src="./js/init.js"></script>
     <script language="JavaScript">
-        // to run this, also have webHttp.js running in node.
+        // setup
         eve.system.init({
             transports: [
                 {
@@ -26,12 +39,6 @@
                 }
             ]
         });
-
-        var proxyAddress = 'ws://afternoon-beyond-2302.herokuapp.com/agents/proxy';
-        var proxyAddressHTTP = 'https://afternoon-beyond-2302.herokuapp.com/agents/proxy';
-
-//        proxyAddress = 'ws://127.0.0.1:5000/agents/proxy';
-//        proxyAddressHTTP = 'http://127.0.0.1:5000/agents/proxy';
 
         inputProxy = new inputAgent('inputAgent', proxyAddress);
 
