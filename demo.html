@@ -9,8 +9,10 @@
 
       // ws://80.152.65.23:5000/agents/proxy
       // http://80.152.65.23:5000/agents/proxy  /   https://80.152.65.23:5000/agents/proxy
-    var proxyAddress = 'ws://afternoon-beyond-2302.herokuapp.com/agents/proxy';
-    var proxyAddressHTTP = 'https://afternoon-beyond-2302.herokuapp.com/agents/proxy';
+//    var proxyAddress = 'ws://afternoon-beyond-2302.herokuapp.com/agents/proxy';
+//    var proxyAddressHTTP = 'https://afternoon-beyond-2302.herokuapp.com/agents/proxy';
+
+      var proxyAddress = 'ws://127.0.0.1:5000/agents/proxy';
   </script>
 
 
@@ -62,18 +64,10 @@
               type: 'ws',
               url: 'ws://agents/:id'
           },
-          {
-              type: 'http'
-          }
       ]
   });
 
-  var proxyAddress = 'ws://afternoon-beyond-2302.herokuapp.com/agents/proxy';
-  var proxyAddressHTTP = 'https://afternoon-beyond-2302.herokuapp.com/agents/proxy';
-
   timelineProxy = new timelineAgent('timelineAgent', proxyAddress);
-
-  timelineProxy.wakeProxy(proxyAddressHTTP);
 
   timelineProxy.connectToProxy();
 

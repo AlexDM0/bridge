@@ -43,9 +43,9 @@ inputAgent.prototype.addTimelineEvent = function(item) {
   this.rpc.request(this.proxyAddress, {method:'addTimelineEvent',params:{item:item}}).done();
 };
 
-inputAgent.prototype.wakeProxy = function(httpAddress) {
-  this.rpc.request(httpAddress, {method:'wakeUp',params:{}}).done();
-};
+//inputAgent.prototype.wakeProxy = function(httpAddress) {
+//  this.rpc.request(httpAddress, {method:'wakeUp',params:{}}).done();
+//};
 
 inputAgent.prototype.resetEventTypes = function(data) {
   this.rpc.request(this.proxyAddress, {method:'resetEventTypes',params:data}).done();

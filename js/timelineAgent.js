@@ -45,9 +45,9 @@ timelineAgent.prototype.rpcFunctions.resetTimelineEvents = function(params,sende
   clearDataset();
 };
 
-timelineAgent.prototype.wakeProxy = function(httpAddress) {
-  this.rpc.request(httpAddress, {method:'wakeUp',params:{}}).done();
-};
+//timelineAgent.prototype.wakeProxy = function(httpAddress) {
+//  this.rpc.request(httpAddress, {method:'wakeUp',params:{}}).done();
+//};
 
 timelineAgent.prototype.getTimelineEvents = function (params, sender) {
   var me = this;
