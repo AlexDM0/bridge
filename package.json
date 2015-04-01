@@ -4,7 +4,7 @@
   "description": "Cloud element for BRIDGE demo",
   "main": "proxy.js",
   "scripts": {
-    "start": "node proxy.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "compression": "^1.4.3",
