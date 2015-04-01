@@ -7,7 +7,11 @@
     "start": "node proxy.js"
   },
   "dependencies": {
-    "evejs": "0.4.6-test"
+    "compression": "^1.4.3",
+    "connect": "^3.3.5",
+    "evejs": "0.4.6-test",
+    "morgan": "^1.5.2",
+    "serve-static": "^1.9.2"
   },
   "engines": {
     "node": "0.10.x"
