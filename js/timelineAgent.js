@@ -32,7 +32,7 @@ timelineAgent.prototype.rpcFunctions.close = function() {
 };
 
 timelineAgent.prototype.connectToProxy = function() {
-  this.rpc.request(this.proxyAddress, {method:'setTimelineClient',params:{}}).done(function () {
+  this.rpc.request(this.proxyAddress, {method:'registerTimelineClient',params:{}}).done(function () {
     connected = true;
   });
 };
@@ -44,10 +44,6 @@ timelineAgent.prototype.rpcFunctions.addTimelineEvent = function(params,sender) 
 timelineAgent.prototype.rpcFunctions.resetTimelineEvents = function(params,sender) {
   clearDataset();
 };
-
-//timelineAgent.prototype.wakeProxy = function(httpAddress) {
-//  this.rpc.request(httpAddress, {method:'wakeUp',params:{}}).done();
-//};
 
 timelineAgent.prototype.getTimelineEvents = function (params, sender) {
   var me = this;

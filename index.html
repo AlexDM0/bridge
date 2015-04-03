@@ -7,7 +7,9 @@
       // change these adresses to correspond to the path of the proxy
       // if the proxy is hosted somewhere (say http://80.152.65.23) on port 5000, the path to the proxy is:
 
-      var proxyAddress = 'ws://'+location.hostname+(location.port ? ':'+location.port: '')+'/agents/proxy';
+      var proxyAddress = 'ws://127.0.0.1:5000/agents/proxy';
+//      proxyAddress = 'ws://'+location.hostname+(location.port ? ':'+location.port: '')+'/agents/proxy';
+
   </script>
 
 
@@ -31,6 +33,28 @@
   // note that months are zero-based in the JavaScript Date object
   var data = new vis.DataSet();
 
+  /**
+   * Create a semi UUID
+   * source: http://stackoverflow.com/a/105074/1262753
+   * @return {String} uuid
+   */
+  function randomUUID() {
+      var S4 = function () {
+          return Math.floor(
+                  Math.random() * 0x10000 /* 65536 */
+          ).toString(16);
+      };
+
+      return (
+      S4() + S4() + '-' +
+      S4() + '-' +
+      S4() + '-' +
+      S4() + '-' +
+      S4() + S4() + S4()
+      );
+  };
+
+
   // called from agent
   function addToDataset(item) {
       console.log(item)
@@ -49,7 +73,7 @@
 
   // specify options
   var options = {
-    editable: true
+    editable: false
   };
 
   // to run this, also have webHttp.js running in node.
@@ -62,16 +86,28 @@
       ]
   });
 
-  timelineProxy = new timelineAgent('timelineAgent', proxyAddress);
+  var timelineId = 'timeline' + randomUUID();
+  console.log("creating timeline with ID:", timelineId);
+  timelineProxy = new timelineAgent(timelineId, proxyAddress);
 
   timelineProxy.connectToProxy();
 
-  timelineProxy.getTimelineEvents().then(function (reply) {
-      addToDataset(reply);
-  }).catch(function (err) {
-      console.error(err);
-  });
+  function refreshAll() {
+      timelineProxy.getTimelineEvents()
+        .then(function (reply) {
+          clearDataset();
+          addToDataset(reply);
+        })
+        .catch(function (err) {
+          console.error('here',err);
+        });
+  }
 
+  // backup for missing events
+  setInterval(refreshAll,10000);
+
+  // initial refresh
+  refreshAll();
 
   // create the timeline
   var container = document.getElementById('mytimeline');

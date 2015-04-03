@@ -7,7 +7,7 @@ function proxyAgent(id) {
   this.eventTypes = {};
   this.timelineEvents = [];
 
-  this.timelineClient = undefined;
+  this.timelineClients = {};
   this.inputClient = undefined;
 
 
@@ -24,12 +24,9 @@ proxyAgent.prototype.constructor = proxyAgent;
 
 proxyAgent.prototype.rpcFunctions = {};
 
-proxyAgent.prototype.rpcFunctions.setTimelineClient = function (params, sender) {
-  console.log("set timeline:",sender);
-  if (this.timelineClient !== undefined) {
-    this.rpc.request(this.timelineClient,{method:"close",params:{}})
-  }
-  this.timelineClient = sender;
+proxyAgent.prototype.rpcFunctions.registerTimelineClient = function (params, sender) {
+  console.log("registered timeline:",sender);
+  this.timelineClients[sender] = new Date().valueOf();
   return true;
 };
 
@@ -68,10 +65,32 @@ proxyAgent.prototype.rpcFunctions.addEventType = function (params, sender) {
 
 proxyAgent.prototype.rpcFunctions.addTimelineEvent = function (params, sender) {
   this.timelineEvents.push(params.item);
-  if (this.timelineClient !== undefined) {
-    this.rpc.request(this.timelineClient, {method:'addTimelineEvent', params:params.item})
+  var me = this;
+  for (var client in this.timelineClients) {
+    if (this.timelineClients.hasOwnProperty(client)) {
+
+      // create a closure with the client.
+      // if the client is unresponsive, remove from the list
+      var handler = function(client,err) {
+        if (err !== undefined) {
+          if (err.message !== undefined) {
+            if (typeof err.message === 'string') {
+              // do not match full message as timeout may be customised
+              if (err.message.indexOf('RPC Promise Timeout surpassed. Timeout: ') !== -1) {
+                delete me.timelineClients[client];
+                console.log("removing timeline:", client, " from list for being unresponsive.")
+              }
+            }
+          }
+        }
+      }.bind(this,client);
+
+      // request
+      this.rpc.request(client, {method:'addTimelineEvent', params:params.item})
+        .catch(handler)
+        .done();
+    }
   }
-  return true;
 };
 
 proxyAgent.prototype.rpcFunctions.getEventTypes = function (params, sender) {
@@ -79,12 +98,11 @@ proxyAgent.prototype.rpcFunctions.getEventTypes = function (params, sender) {
 };
 
 proxyAgent.prototype.rpcFunctions.getTimelineEvents = function (params, sender) {
+  if (this.timelineClients[sender] === undefined) {
+    this.timelineClients[sender] = new Date().valueOf();
+    console.log("registered timeline:",sender);
+  }
   return this.timelineEvents;
-};
-
-proxyAgent.prototype.rpcFunctions.wakeUp = function (params, sender) {
-  console.log("received wakeUp signal from", sender);
-  return true;
 };
 
 module.exports = proxyAgent;
