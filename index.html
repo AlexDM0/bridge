@@ -7,8 +7,9 @@
       // change these adresses to correspond to the path of the proxy
       // if the proxy is hosted somewhere (say http://80.152.65.23) on port 5000, the path to the proxy is:
 
-      var proxyAddress = 'ws://127.0.0.1:5000/agents/proxy';
-//      proxyAddress = 'ws://'+location.hostname+(location.port ? ':'+location.port: '')+'/agents/proxy';
+      var proxyAddress = 'ws://'+(location.protocol === 'file:' ?
+          '127.0.0.1:5000' : (location.hostname+(location.port ?
+              ':'+location.port: ''))) + '/agents/proxy';
 
   </script>
 
