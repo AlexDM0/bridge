@@ -7,8 +7,8 @@
       // change these adresses to correspond to the path of the proxy
       // if the proxy is hosted somewhere (say http://80.152.65.23) on port 5000, the path to the proxy is:
 
-      var proxyAddress = 'ws://127.0.0.1:5000/agents/proxy';
-//      proxyAddress = 'ws://'+location.hostname+(location.port ? ':'+location.port: '')+'/agents/proxy';
+//      var proxyAddress = 'ws://127.0.0.1:5000/agents/proxy';  //testing
+      var proxyAddress = 'ws://'+location.hostname+(location.port ? ':'+location.port: '')+'/agents/proxy';
 
   </script>
 
@@ -20,6 +20,7 @@
   <link href="js/vis/vis.css" rel="stylesheet" type="text/css" />
 
   <link href="./css/timelineStyle.css" rel="stylesheet" type="text/css" />
+
 
 </head>
 <body>
@@ -57,9 +58,9 @@
 
   // called from agent
   function addToDataset(item) {
-      console.log(item)
       data.add(item);
   }
+
   // called from agent
   function clearDataset() {
       data.clear();
@@ -70,10 +71,18 @@
           document.getElementById("overlayNC").style.display = 'block';
       }
   }
+  var template = function (item) {
+      var uncleanContent = item.content;
 
+      // --> make clean
+      var cleanContent = uncleanContent;
+
+      return cleanContent;
+  }
   // specify options
   var options = {
-    editable: false
+    editable: false,
+    template: template
   };
 
   // to run this, also have webHttp.js running in node.
