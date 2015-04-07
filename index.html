@@ -75,8 +75,8 @@
   var template = function (item) {
       var uncleanContent = item.content;
 
-      // --> make clean
-      var cleanContent = uncleanContent;
+      var cleanContent = document.createElement("div");
+      cleanContent.appendChild(document.createTextNode(uncleanContent));
 
       return cleanContent;
   }
