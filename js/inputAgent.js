@@ -58,7 +58,7 @@ inputAgent.prototype.getEventTypes = function (params, sender) {
         resolve(reply);
       })
       .catch(function(err) {reject(err);});
-  })
+  });
 };
 
 inputAgent.prototype.getTimelineEvents = function (params, sender) {
